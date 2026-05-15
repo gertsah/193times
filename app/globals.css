@@ -183,3 +183,12 @@ body {
 html {
   scroll-behavior: smooth;
 }
+
+/* Custom cursor — hide native one while <Cursor /> is mounted.
+   Touch / coarse-pointer devices keep their native cursor (the
+   component skips itself on those). */
+html.cursor-none,
+html.cursor-none body,
+html.cursor-none * {
+  cursor: none !important;
+}

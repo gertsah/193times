@@ -1,4 +1,5 @@
 import Header from "@/components/Header";
+import Cursor from "@/components/Cursor";
 import Intro from "@/components/Intro";
 import Hero from "@/components/Hero";
 import WhatWeDo from "@/components/WhatWeDo";
@@ -26,6 +27,7 @@ import Footer from "@/components/Footer";
 export default function Page() {
   return (
     <div className="relative bg-bg text-ink">
+      <Cursor />
       <Header />
 
       {/* Fixed background layer */}

@@ -30,7 +30,7 @@ export const metadata: Metadata = {
       "Websites, visuals and automations built with code.",
   },
   icons: {
-    icon: "/favicon.svg",
+    icon: `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/favicon.svg`,
   },
 };
 

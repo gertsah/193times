@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import SectionLabel from "./primitives/SectionLabel";
 import SplitReveal from "./primitives/SplitReveal";
+import { asset } from "@/lib/asset";
 
 const TICKER = [
   "САЙТЫ",
@@ -61,7 +62,7 @@ export default function Hero() {
       {/* Background image with a soft top mask */}
       <div className="pointer-events-none absolute inset-0 -z-10">
         <Image
-          src="/media/hero.png"
+          src={asset("/media/hero.png")}
           alt=""
           fill
           priority

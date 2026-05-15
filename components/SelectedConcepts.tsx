@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import SectionLabel from "./primitives/SectionLabel";
 import Reveal from "./primitives/Reveal";
 import SplitReveal from "./primitives/SplitReveal";
+import { asset } from "@/lib/asset";
 
 type Concept = {
   index: string;
@@ -139,7 +140,7 @@ function ConceptCard({
               className="absolute inset-0"
             >
               <Image
-                src={concept.image}
+                src={asset(concept.image)}
                 alt={concept.title}
                 fill
                 sizes="(min-width: 768px) 50vw, 100vw"

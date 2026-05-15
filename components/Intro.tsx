@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import Wordmark, { Mark } from "./Wordmark";
 import GridPulse from "./primitives/GridPulse";
+import { asset } from "@/lib/asset";
 
 /**
  * Full-screen intro. Sits behind the main content via the sticky
@@ -67,11 +68,11 @@ export function Intro() {
         muted
         playsInline
         preload="auto"
-        poster="/media/hero.png"
+        poster={asset("/media/hero.png")}
         className="pointer-events-none absolute inset-0 h-full w-full object-cover"
         style={{ filter: "blur(6px) saturate(1.05) brightness(0.7)" }}
       >
-        <source src="/media/intro.mp4" type="video/mp4" />
+        <source src={asset("/media/intro.mp4")} type="video/mp4" />
       </video>
 
       {/* Backdrop ornaments + readability overlay */}

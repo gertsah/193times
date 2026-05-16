@@ -1,5 +1,7 @@
 /** @type {import('next').NextConfig} */
-const basePath = "";
+const isProd = process.env.NODE_ENV === "production";
+const repo = "193times";
+const basePath = isProd ? `/${repo}` : "";
 
 const nextConfig = {
   output: "export",

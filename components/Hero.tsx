@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import SectionLabel from "./primitives/SectionLabel";
@@ -34,14 +34,14 @@ export default function Hero() {
     return () => el.removeEventListener("pointermove", onMove);
   }, [reduce]);
 
-  // scroll-linked parallax for code panels
+  // subtle scroll-linked parallax for each panel
   const { scrollYProgress } = useScroll({
     target: wrapRef,
     offset: ["start end", "end start"],
   });
-  const yA = useTransform(scrollYProgress, [0, 1], [80, -120]);
-  const yB = useTransform(scrollYProgress, [0, 1], [40, -180]);
-  const yC = useTransform(scrollYProgress, [0, 1], [120, -60]);
+  const yA = useTransform(scrollYProgress, [0, 1], [40, -60]);
+  const yB = useTransform(scrollYProgress, [0, 1], [70, -30]);
+  const yC = useTransform(scrollYProgress, [0, 1], [10, -90]);
 
   return (
     <section
@@ -91,8 +91,8 @@ export default function Hero() {
         <div className="hairline h-px w-full" aria-hidden />
       </div>
 
-      {/* Headline + side column + code panels */}
-      <div className="container-x relative grid grid-cols-12 gap-x-6 pt-10 pb-20 md:pt-16 md:pb-32">
+      {/* Headline + side column */}
+      <div className="container-x relative grid grid-cols-12 gap-x-6 pt-10 md:pt-16">
         {/* Left mono kicker */}
         <div className="col-span-12 md:col-span-3 md:pt-2">
           <motion.div
@@ -172,57 +172,77 @@ export default function Hero() {
             </div>
           </motion.div>
         </div>
+      </div>
 
-        {/* Floating code panels — desktop only */}
-        <div className="pointer-events-none absolute inset-0 hidden lg:block">
-          <motion.div
-            style={{ y: yA }}
-            className="pointer-events-auto absolute right-[6%] top-[8%] w-[320px]"
-          >
+      {/* Code panels — full-width row below CTA, no overlap with headline */}
+      <div className="container-x mt-20 hidden pb-24 lg:block md:mt-24 md:pb-32">
+        <div className="mb-6 flex items-center justify-between">
+          <SectionLabel index="01">Live · код студии в реальном времени</SectionLabel>
+          <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted">
+            <span className="text-ember">●</span>&nbsp; streaming · 3 sources
+          </span>
+        </div>
+
+        <div className="grid grid-cols-12 gap-x-6">
+          <motion.div style={{ y: yA }} className="col-span-4">
             <CodePanel
               file="studio.config.ts"
+              kind="code"
+              statusRight="ts · v1.9.3"
+              live
               lines={[
-                [{ s: "k", t: "const" }, { t: " " }, { s: "c", t: "studio" }, { t: " = {" }],
+                [{ s: "p", t: "// brand · stack · capacity" }],
+                [{ s: "k", t: "import" }, { t: " { Studio } " }, { s: "k", t: "from" }, { t: " " }, { s: "s", t: "\"@193t/core\"" }, { t: ";" }],
+                [{ t: "" }],
+                [{ s: "k", t: "export const" }, { t: " " }, { s: "c", t: "studio" }, { t: ": " }, { s: "c", t: "Studio" }, { t: " = {" }],
                 [{ t: "  name: " }, { s: "s", t: "\"193Times\"" }, { t: "," }],
-                [{ t: "  stack: " }, { s: "s", t: "[\"next\", \"motion\"]" }, { t: "," }],
                 [{ t: "  region: " }, { s: "s", t: "\"RU-Новороссийск\"" }, { t: "," }],
-                [{ t: "  mode: " }, { s: "s", t: "\"code-driven\"" }, { t: "," }],
+                [{ t: "  stack: " }, { s: "s", t: "[\"next\", \"motion\", \"tailwind\"]" }, { t: "," }],
+                [{ t: "  ai: " }, { s: "s", t: "[\"claude-4.7\", \"gpt-5\", \"sora\"]" }, { t: "," }],
+                [{ t: "  ship: " }, { s: "n", t: "193" }, { t: "," }, { s: "p", t: " // дней опыта" }],
+                [{ t: "  free: " }, { s: "n", t: "2" }, { t: "," }, { s: "p", t: " // слота / квартал" }],
                 [{ t: "};" }],
               ]}
             />
           </motion.div>
 
-          <motion.div
-            style={{ y: yB }}
-            className="pointer-events-auto absolute right-[2%] top-[46%] w-[280px]"
-          >
+          <motion.div style={{ y: yB }} className="col-span-4">
             <CodePanel
-              file="POST /brief"
+              file="POST /api/brief"
               kind="api"
+              statusRight="201 Created · 142ms"
+              live
               lines={[
+                [{ s: "p", t: "→ POST https://193times.ru/api/brief" }],
+                [{ s: "p", t: "← server response" }],
                 [{ t: "{" }],
-                [{ t: "  " }, { s: "k", t: "\"status\"" }, { t: ": " }, { s: "n", t: "201" }, { t: "," }],
-                [{ t: "  " }, { s: "k", t: "\"reply\"" }, { t: ": " }, { s: "s", t: "\"≤ 24ч\"" }, { t: "," }],
-                [{ t: "  " }, { s: "k", t: "\"slots\"" }, { t: ": " }, { s: "n", t: "2" }, { t: "," }],
-                [{ t: "  " }, { s: "k", t: "\"queue\"" }, { t: ": " }, { s: "s", t: "\"Q3—Q4 / 2026\"" }],
+                [{ t: "  " }, { s: "k", t: "\"status\"" }, { t: ":   " }, { s: "n", t: "201" }, { t: "," }],
+                [{ t: "  " }, { s: "k", t: "\"reply\"" }, { t: ":    " }, { s: "s", t: "\"≤ 24ч\"" }, { t: "," }],
+                [{ t: "  " }, { s: "k", t: "\"queue\"" }, { t: ":    " }, { s: "s", t: "\"Q3—Q4 / 2026\"" }, { t: "," }],
+                [{ t: "  " }, { s: "k", t: "\"slots\"" }, { t: ":    " }, { s: "n", t: "2" }, { t: "," }],
+                [{ t: "  " }, { s: "k", t: "\"rate\"" }, { t: ":     " }, { s: "s", t: "\"₽12k/час\"" }, { t: "," }],
+                [{ t: "  " }, { s: "k", t: "\"contact\"" }, { t: ":  " }, { s: "s", t: "\"hello@193times.ru\"" }, { t: "," }],
+                [{ t: "  " }, { s: "k", t: "\"id\"" }, { t: ":       " }, { s: "s", t: "\"brief_9a3b41\"" }],
                 [{ t: "}" }],
               ]}
             />
           </motion.div>
 
-          <motion.div
-            style={{ y: yC }}
-            className="pointer-events-auto absolute left-[2%] bottom-[8%] w-[290px]"
-          >
+          <motion.div style={{ y: yC }} className="col-span-4">
             <CodePanel
-              file="zsh"
+              file="zsh — ~/193t"
               kind="term"
+              statusRight="exit 0 · 1.93s"
+              live
               lines={[
-                [{ s: "p", t: "$ " }, { s: "c", t: "hf" }, { t: " deploy --prod" }],
-                [{ s: "p", t: "› " }, { t: "build      " }, { s: "g", t: "ok" }],
-                [{ s: "p", t: "› " }, { t: "visuals    " }, { s: "g", t: "ok" }],
-                [{ s: "p", t: "› " }, { t: "automation " }, { s: "g", t: "ok" }],
-                [{ s: "p", t: "› " }, { t: "ship       " }, { s: "e", t: "193ms ✓" }],
+                [{ s: "p", t: "$ " }, { s: "c", t: "hf" }, { t: " deploy --prod --notes 'spring drop'" }],
+                [{ s: "p", t: "› " }, { t: "compile     " }, { s: "g", t: "ok" }, { t: "   " }, { s: "p", t: "+187 modules" }],
+                [{ s: "p", t: "› " }, { t: "bundle      " }, { s: "g", t: "ok" }, { t: "   " }, { s: "p", t: "218.4 kb gz" }],
+                [{ s: "p", t: "› " }, { t: "visuals     " }, { s: "g", t: "ok" }, { t: "   " }, { s: "p", t: "12 frames"   }],
+                [{ s: "p", t: "› " }, { t: "automation  " }, { s: "g", t: "ok" }, { t: "   " }, { s: "p", t: "9 hooks"     }],
+                [{ s: "p", t: "› " }, { t: "lighthouse  " }, { s: "g", t: "99/100" }],
+                [{ s: "p", t: "› " }, { t: "deploy      " }, { s: "g", t: "live" }, { t: " " }, { s: "p", t: "193times.ru" }],
+                [{ s: "p", t: "› " }, { t: "ship        " }, { s: "e", t: "193ms ✓" }],
               ]}
             />
           </motion.div>
@@ -265,42 +285,122 @@ type Seg = { s?: string; t: string };
 
 /** Style codes:
  *   k - keyword (ember)        s - string (gold)
- *   n - number (ember dim)     p - punctuation (muted)
- *   c - constant (ink-bright)  g - success (mint via amber/gold)
+ *   n - number (ember dim)     p - punctuation / comment (muted)
+ *   c - constant (ink-bright)  g - success (gold)
  *   e - emphasis (ember bold)  default - ink/85
  */
 function CodePanel({
   file,
   lines,
   kind = "code",
+  statusRight,
+  live = false,
 }: {
   file: string;
   lines: Seg[][];
   kind?: "code" | "api" | "term";
+  statusRight?: string;
+  live?: boolean;
 }) {
+  const reduce = useReducedMotion();
+
+  // Flatten lines into a character stream so we can reveal progressively.
+  const flat = useMemo(() => {
+    const out: { ch: string; s?: string }[] = [];
+    lines.forEach((row, li) => {
+      row.forEach((seg) => {
+        for (const ch of seg.t) out.push({ ch, s: seg.s });
+      });
+      if (li < lines.length - 1) out.push({ ch: "\n" });
+    });
+    return out;
+  }, [lines]);
+
+  const [pos, setPos] = useState(live && !reduce ? 0 : flat.length);
+
+  useEffect(() => {
+    if (!live || reduce) {
+      setPos(flat.length);
+      return;
+    }
+    const total = flat.length;
+    const speedMin = 18;
+    const speedMax = 42;
+    const pauseFull = 2400;
+    const pauseEol = 220;
+    let cur = 0;
+    let timer: ReturnType<typeof setTimeout>;
+    const step = () => {
+      if (cur < total) {
+        cur += 1;
+        setPos(cur);
+        const justTyped = flat[cur - 1]?.ch;
+        const wait =
+          justTyped === "\n"
+            ? pauseEol
+            : speedMin + Math.random() * (speedMax - speedMin);
+        timer = setTimeout(step, wait);
+      } else {
+        timer = setTimeout(() => {
+          cur = 0;
+          setPos(0);
+          timer = setTimeout(step, 280);
+        }, pauseFull);
+      }
+    };
+    timer = setTimeout(step, 600);
+    return () => clearTimeout(timer);
+  }, [flat, live, reduce]);
+
+  // Rebuild styled lines from the revealed slice of the flat stream.
+  const revealed = useMemo(() => {
+    if (pos >= flat.length) return lines;
+    const out: Seg[][] = [[]];
+    for (let i = 0; i < pos; i++) {
+      const { ch, s } = flat[i];
+      if (ch === "\n") {
+        out.push([]);
+      } else {
+        const row = out[out.length - 1];
+        const last = row[row.length - 1];
+        if (last && last.s === s) last.t += ch;
+        else row.push({ s, t: ch });
+      }
+    }
+    return out;
+  }, [pos, flat, lines]);
+
+  const totalLines = lines.length;
+  const caretRow = revealed.length - 1;
+  const isTyping = live && !reduce && pos < flat.length;
+
   return (
     <div
-      className="relative overflow-hidden rounded-xl border border-line bg-card/95 font-mono text-[11px] shadow-[0_30px_60px_-20px_rgba(0,0,0,0.6),0_0_0_1px_rgba(255,59,31,0.08)] backdrop-blur"
+      className="relative overflow-hidden rounded-xl border border-line bg-card/95 font-mono text-[12px] shadow-[0_30px_60px_-20px_rgba(0,0,0,0.6),0_0_0_1px_rgba(255,59,31,0.08)] backdrop-blur"
       role="figure"
       aria-hidden
     >
-      <div className="flex items-center justify-between border-b border-line bg-bg/60 px-3 py-2">
+      <div className="flex items-center justify-between border-b border-line bg-bg/60 px-4 py-2.5">
         <span className="flex items-center gap-1.5">
-          <span className="h-1.5 w-1.5 rounded-full bg-line" />
-          <span className="h-1.5 w-1.5 rounded-full bg-line" />
-          <span className="h-1.5 w-1.5 rounded-full bg-ember/70" />
+          <span className="h-2 w-2 rounded-full bg-line" />
+          <span className="h-2 w-2 rounded-full bg-line" />
+          <span className="h-2 w-2 rounded-full bg-ember/70" />
         </span>
-        <span className="text-[10px] uppercase tracking-[0.16em] text-muted">
+        <span className="text-[10.5px] uppercase tracking-[0.16em] text-muted">
           {file}
         </span>
-        <span className="text-[10px] text-muted">
-          {kind === "api" ? "200 OK" : kind === "term" ? "zsh" : "ts"}
+        <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted">
+          {statusRight ?? (kind === "api" ? "200 OK" : kind === "term" ? "zsh" : "ts")}
         </span>
       </div>
-      <pre className="m-0 p-3.5 leading-[1.55] text-ink">
-        {lines.map((row, i) => (
+      {/* Body, sized to total content so layout stays stable while typing */}
+      <pre
+        className="m-0 p-4 leading-[1.55] text-ink"
+        style={{ minHeight: `${totalLines * 1.55 + 0.6}em` }}
+      >
+        {revealed.map((row, i) => (
           <div key={i} className="flex whitespace-pre">
-            <span className="mr-3 w-4 select-none text-right text-muted/50">
+            <span className="mr-3 w-5 select-none text-right text-muted/45">
               {String(i + 1).padStart(2, "0")}
             </span>
             <span className="flex-1">
@@ -309,6 +409,9 @@ function CodePanel({
                   {seg.t}
                 </span>
               ))}
+              {isTyping && i === caretRow && (
+                <span className="ml-[1px] inline-block h-[1.05em] w-[7px] -mb-[2px] animate-pulse bg-ember align-baseline" />
+              )}
             </span>
           </div>
         ))}

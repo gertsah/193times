@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import Wordmark, { Mark } from "./Wordmark";
+import Wordmark from "./Wordmark";
 
 const NAV = [
   { label: "Работы", href: "#work" },
@@ -57,23 +57,13 @@ export default function Header() {
         }`}
       >
         <div className="container-x flex h-16 items-center justify-between md:h-20">
-          {/* Logo group: 193T mark + wordmark; hover inverts mark */}
+          {/* Brand lockup */}
           <a
             href="#top"
-            aria-label="193Times — на главную"
-            className="group flex items-center gap-3"
+            aria-label="193 Times — на главную"
+            className="group flex items-center"
           >
-            <span className="relative inline-block">
-              {/* Default mark */}
-              <Mark size={32} className="transition-opacity duration-300 group-hover:opacity-0" />
-              {/* Hover-state mark (inverted) */}
-              <Mark
-                invert
-                size={32}
-                className="absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-              />
-            </span>
-            <Wordmark className="text-[20px] md:text-[24px] transition-colors duration-300 group-hover:text-ember" />
+            <Wordmark className="text-[22px] md:text-[28px] transition-opacity duration-300 group-hover:opacity-80" />
           </a>
 
           <nav className="hidden items-center gap-8 md:flex" aria-label="Primary">

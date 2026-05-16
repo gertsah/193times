@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import Wordmark from "./Wordmark";
+import Wordmark, { Mark } from "./Wordmark";
 
 const NAV = [
   { label: "Работы", href: "#work" },
@@ -57,13 +57,14 @@ export default function Header() {
         }`}
       >
         <div className="container-x flex h-16 items-center justify-between md:h-20">
-          {/* Brand lockup */}
+          {/* Logo: square brand mark + wordmark */}
           <a
             href="#top"
-            aria-label="193 Times — на главную"
-            className="group flex items-center"
+            aria-label="193Times — на главную"
+            className="group flex items-center gap-3"
           >
-            <Wordmark className="text-[22px] md:text-[28px] transition-opacity duration-300 group-hover:opacity-80" />
+            <Mark size={32} className="transition-opacity duration-300 group-hover:opacity-80" />
+            <Wordmark className="text-[20px] md:text-[24px] transition-colors duration-300 group-hover:text-ember" />
           </a>
 
           <nav className="hidden items-center gap-8 md:flex" aria-label="Primary">

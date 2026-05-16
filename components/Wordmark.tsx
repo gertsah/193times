@@ -1,42 +1,45 @@
 import { CSSProperties } from "react";
 import { asset } from "@/lib/asset";
 
-const LOGO_SRC = asset("/media/logo.png");
-const LOGO_ASPECT = 1013 / 489;
-
-type WordmarkProps = {
+type Props = {
   className?: string;
   style?: CSSProperties;
+  /** Negative em between "193" and "Times". Default ~-0.04em (T just kisses 3). */
   overlap?: string;
 };
 
 /**
- * 193Times wordmark — full brand lockup image. Height is driven by
- * the CSS font-size on the wrapper (1em on the img), so existing
- * `text-[24px]` / `text-[12vw]` classes still control sizing.
+ * 193Times wordmark — bold geometric grotesk.
+ *
+ * Set in Geist Sans at its heaviest weight with tight negative tracking
+ * so the typography reads as a custom mark. The "T" sits immediately
+ * next to the "3" with a hair of overlap so the two glyphs touch but
+ * don't crash into each other.
  */
-export function Wordmark({ className = "", style }: WordmarkProps) {
+export function Wordmark({
+  className = "",
+  style,
+  overlap = "-0.04em",
+}: Props) {
   return (
     <span
       role="img"
-      aria-label="193 Times"
-      className={`inline-flex items-center leading-none whitespace-nowrap ${className}`}
+      aria-label="193Times"
+      className={`inline-flex items-baseline whitespace-nowrap font-sans font-black leading-none tracking-[-0.05em] ${className}`}
       style={style}
     >
-      <img
-        src={LOGO_SRC}
-        alt=""
-        aria-hidden
-        draggable={false}
-        style={{ height: "1em", width: `calc(1em * ${LOGO_ASPECT})` }}
-      />
+      <span className="inline-block">193</span>
+      <span className="inline-block" style={{ marginLeft: overlap }}>
+        Times
+      </span>
     </span>
   );
 }
 
 /**
- * Square mark — same logo, framed in a small rounded box. Used as a
- * compact decorative element next to captions in Footer / Manifesto.
+ * Square brand mark — the new Times logo lockup rendered inside a
+ * rounded square frame. Has a default and an inverted (dark-on-light)
+ * variant for use on light surfaces.
  */
 export function Mark({
   className = "",
@@ -57,11 +60,11 @@ export function Mark({
       } ${className}`}
     >
       <img
-        src={LOGO_SRC}
+        src={asset("/media/logo.png")}
         alt=""
         aria-hidden
         draggable={false}
-        className="max-h-[78%] max-w-[78%] object-contain"
+        className="h-full w-full object-cover"
         style={invert ? { filter: "invert(1)" } : undefined}
       />
     </span>

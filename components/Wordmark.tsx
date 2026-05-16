@@ -64,7 +64,7 @@ export function Mark({
         alt=""
         aria-hidden
         draggable={false}
-        className="h-full w-full object-cover"
+        className="h-full w-full object-contain"
         style={invert ? { filter: "invert(1)" } : undefined}
       />
     </span>

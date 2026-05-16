@@ -117,7 +117,7 @@ export default function Hero() {
 
         {/* Headline */}
         <div className="relative col-span-12 md:col-span-9 md:-mt-3">
-          <h1 className="text-balance font-sans font-black tracking-[-0.045em] leading-[0.95] text-[14vw] md:text-[10.4vw] lg:text-[9rem] xl:text-[10.5rem]">
+          <h1 className="text-balance font-sans font-black tracking-[-0.045em] leading-[0.95] text-[11.5vw] md:text-[10.4vw] lg:text-[9rem] xl:text-[10.5rem]">
             <span className="block">
               <SplitReveal stagger={0.07} delay={0.1}>
                 {"Сайты, "}
@@ -175,16 +175,16 @@ export default function Hero() {
       </div>
 
       {/* Code panels — full-width row below CTA, no overlap with headline */}
-      <div className="container-x mt-20 hidden pb-24 lg:block md:mt-24 md:pb-32">
-        <div className="mb-6 flex items-center justify-between">
+      <div className="container-x mt-16 pb-20 md:mt-24 md:pb-32">
+        <div className="mb-6 flex items-center justify-between gap-3">
           <SectionLabel index="01">Live · код студии в реальном времени</SectionLabel>
-          <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted">
+          <span className="hidden font-mono text-[10px] uppercase tracking-[0.22em] text-muted md:inline">
             <span className="text-ember">●</span>&nbsp; streaming · 3 sources
           </span>
         </div>
 
-        <div className="grid grid-cols-12 gap-x-6">
-          <motion.div style={{ y: yA }} className="col-span-4">
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-12 lg:gap-x-6">
+          <motion.div style={{ y: yA }} className="lg:col-span-4">
             <CodePanel
               file="studio.config.ts"
               kind="code"
@@ -206,7 +206,7 @@ export default function Hero() {
             />
           </motion.div>
 
-          <motion.div style={{ y: yB }} className="col-span-4">
+          <motion.div style={{ y: yB }} className="lg:col-span-4">
             <CodePanel
               file="POST /api/brief"
               kind="api"
@@ -228,7 +228,7 @@ export default function Hero() {
             />
           </motion.div>
 
-          <motion.div style={{ y: yC }} className="col-span-4">
+          <motion.div style={{ y: yC }} className="md:col-span-2 lg:col-span-4">
             <CodePanel
               file="zsh — ~/193t"
               kind="term"

@@ -60,10 +60,9 @@ export function Intro() {
         transform: `scale(${scale})`,
       }}
     >
-      {/* Background video.
-          Mobile: shown as a wide horizontal band centered vertically so the
-          ultrawide source isn't cropped to an unreadable vertical strip.
-          Desktop: full-bleed object-cover behind everything. */}
+      {/* Background video — full-bleed object-cover behind everything.
+          Heavy blur turns the source into an ambient field so the overlay
+          wordmark reads as the dominant text. */}
       <video
         aria-hidden
         autoPlay
@@ -72,7 +71,7 @@ export function Intro() {
         playsInline
         preload="auto"
         poster={asset("/media/hero.png")}
-        className="pointer-events-none absolute inset-x-0 top-1/2 h-auto w-full -translate-y-1/2 object-cover [filter:saturate(1.05)_brightness(0.75)] md:inset-0 md:h-full md:translate-y-0 md:[filter:blur(6px)_saturate(1.05)_brightness(0.7)]"
+        className="pointer-events-none absolute inset-0 h-full w-full object-cover [filter:blur(4px)_saturate(1.05)_brightness(0.7)] md:[filter:blur(6px)_saturate(1.05)_brightness(0.7)]"
       >
         <source src={asset("/media/intro.mp4")} type="video/mp4" />
       </video>

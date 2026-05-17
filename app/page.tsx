@@ -10,6 +10,7 @@ import Process from "@/components/Process";
 import Services from "@/components/Services";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
+import CookieBanner from "@/components/CookieBanner";
 
 /**
  * Sticky intro → hero hand-off
@@ -50,6 +51,8 @@ export default function Page() {
         <CTA />
         <Footer />
       </main>
+
+      <CookieBanner />
     </div>
   );
 }

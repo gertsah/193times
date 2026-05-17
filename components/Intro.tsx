@@ -69,8 +69,7 @@ export function Intro() {
         playsInline
         preload="auto"
         poster={asset("/media/hero.png")}
-        className="pointer-events-none absolute inset-0 h-full w-full object-cover"
-        style={{ filter: "blur(6px) saturate(1.05) brightness(0.7)" }}
+        className="pointer-events-none absolute inset-0 h-full w-full object-cover [filter:blur(3px)_saturate(1.05)_brightness(0.7)] md:[filter:blur(6px)_saturate(1.05)_brightness(0.7)]"
       >
         <source src={asset("/media/intro.mp4")} type="video/mp4" />
       </video>
@@ -86,8 +85,8 @@ export function Intro() {
       {/* Invisible grid — square cells light up sequentially in ember */}
       <GridPulse cellSize={130} count={7} swapMs={320} fadeMs={800} peakOpacity={0.22} />
 
-      {/* Top strip — issue + location */}
-      <div className="absolute inset-x-0 top-0 px-6 py-5 md:px-10 md:py-7">
+      {/* Top strip — issue + location. On mobile pushed below the fixed header. */}
+      <div className="absolute inset-x-0 top-0 px-6 pt-20 pb-2 md:px-10 md:py-7">
         <div className="flex items-center justify-between marginalia">
           <span className="inline-flex items-center gap-2">
             <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-ember" />
@@ -106,6 +105,7 @@ export function Intro() {
           initial={reduce ? false : { opacity: 0, scale: 0.6 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+          className="hidden md:block"
         >
           <Mark size={44} />
         </motion.div>
@@ -116,7 +116,7 @@ export function Intro() {
           transition={{ duration: 1.2, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           className="flex flex-col items-center"
         >
-          <Wordmark className="text-[14vw] tracking-[-0.04em] leading-none md:text-[11vw] lg:text-[9.4vw]" overlap="-0.02em" />
+          <Wordmark className="text-[20vw] tracking-[-0.04em] leading-none md:text-[11vw] lg:text-[9.4vw]" overlap="-0.02em" />
         </motion.div>
 
         <motion.div

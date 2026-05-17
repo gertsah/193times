@@ -98,7 +98,7 @@ export default function Manifesto() {
       {/* GIANT wordmark behind */}
       <div className="container-x relative pb-16 md:pb-24">
         <motion.div style={{ scale: wordmarkScale }} className="origin-bottom-left">
-          <Wordmark className="text-[28vw] tracking-[-0.05em] leading-none md:text-[20vw]" />
+          <Wordmark className="text-[22vw] tracking-[-0.05em] leading-none md:text-[20vw]" />
         </motion.div>
         <div className="mt-6 flex items-end justify-between border-t border-bg/15 pt-4">
           <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-bg/60">

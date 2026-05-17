@@ -90,6 +90,13 @@ export default function Footer() {
             <span className="hidden md:inline">·</span>
             <span>Выпуск <span className="text-ember">№193</span></span>
             <span className="hidden md:inline">·</span>
+            <a
+              href="/privacy/"
+              className="underline-grow text-ink/80 hover:text-ink"
+            >
+              Политика конфиденциальности
+            </a>
+            <span className="hidden md:inline">·</span>
             <span className="hidden md:inline">Сделано дизайном, кодом и AI</span>
           </div>
           <div className="marginalia inline-flex items-center gap-2">

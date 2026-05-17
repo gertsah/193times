@@ -148,6 +148,14 @@ body {
   .marginalia {
     @apply font-mono text-[10px] uppercase tracking-[0.18em] text-muted;
   }
+
+  /* Policy / legal long-form */
+  .policy-h2 {
+    @apply font-sans font-black text-2xl tracking-[-0.03em] text-ink mt-0 mb-4;
+  }
+  .policy-ul {
+    @apply mt-3 space-y-2 pl-5 list-disc marker:text-ember/70;
+  }
 }
 
 /* Hero ticker */

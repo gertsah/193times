@@ -22,10 +22,12 @@ const BUDGETS = [
 export default function CTA() {
   const [need, setNeed] = useState<(typeof NEEDS)[number]>("Полный пакет");
   const [budget, setBudget] = useState<(typeof BUDGETS)[number]>("700тыс — 1.5 млн");
+  const [consent, setConsent] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
   function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (!consent) return;
     setSubmitted(true);
   }
 
@@ -143,6 +145,35 @@ export default function CTA() {
                   </div>
                 </div>
 
+                {/* Consent — required by FZ-152 */}
+                <label
+                  htmlFor="consent"
+                  className="flex cursor-pointer items-start gap-3 border-t border-line bg-card px-6 py-4 text-[13px] leading-relaxed text-ink/80 transition-colors hover:text-ink"
+                >
+                  <input
+                    id="consent"
+                    name="consent"
+                    type="checkbox"
+                    required
+                    checked={consent}
+                    onChange={(e) => setConsent(e.target.checked)}
+                    className="mt-0.5 h-4 w-4 shrink-0 cursor-pointer accent-ember"
+                  />
+                  <span>
+                    Я согласен(-на) на обработку моих персональных данных в
+                    соответствии с{" "}
+                    <a
+                      href="/privacy/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-ember underline-grow"
+                    >
+                      Политикой конфиденциальности
+                    </a>{" "}
+                    и Федеральным законом № 152-ФЗ.
+                  </span>
+                </label>
+
                 <div className="flex flex-col items-start justify-between gap-4 px-6 py-5 md:flex-row md:items-center">
                   <p className="marginalia">
                     Ответ за{" "}
@@ -151,7 +182,8 @@ export default function CTA() {
                   </p>
                   <button
                     type="submit"
-                    className="group inline-flex items-center gap-3 rounded-full bg-ember px-6 py-3 font-mono text-[11px] uppercase tracking-[0.18em] text-bg transition-transform hover:-translate-y-0.5"
+                    disabled={!consent && !submitted}
+                    className="group inline-flex items-center gap-3 rounded-full bg-ember px-6 py-3 font-mono text-[11px] uppercase tracking-[0.18em] text-bg transition-all hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:translate-y-0"
                   >
                     {submitted ? "Отправлено ✓" : "Начать проект"}
                     <svg viewBox="0 0 14 14" className="h-3 w-3" fill="none">

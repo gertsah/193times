@@ -172,7 +172,7 @@ export default function Header() {
                   </svg>
                 </a>
                 <p className="marginalia">
-                  hello@193times.com · Новороссийск, RU
+                  193times@mail.ru · Новороссийск, RU
                 </p>
               </div>
             </div>

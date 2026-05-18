@@ -10,7 +10,7 @@ const NAV = [
 const SOCIALS = [
   { label: "Instagram", href: "https://instagram.com/193times" },
   { label: "TikTok", href: "https://tiktok.com/@193times" },
-  { label: "Telegram", href: "https://t.me/193times" },
+  { label: "Telegram", href: "https://t.me/odin93times" },
   { label: "LinkedIn", href: "https://linkedin.com/company/193times" },
   { label: "Behance", href: "https://behance.net/193times" },
 ];
@@ -76,10 +76,10 @@ export default function Footer() {
           <div className="col-span-12 md:col-span-2">
             <p className="marginalia">Прямая связь</p>
             <a
-              href="mailto:hello@193times.com"
+              href="mailto:193times@mail.ru"
               className="mt-3 inline-block font-sans font-black text-[22px] tracking-[-0.04em] leading-tight md:mt-4 md:text-[1.5rem]"
             >
-              hello@193times.com
+              193times@mail.ru
             </a>
           </div>
         </div>

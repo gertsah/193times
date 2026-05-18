@@ -204,13 +204,13 @@ export default function CTA() {
               <div className="space-y-6">
                 <DirectLine
                   label="Email"
-                  value="hello@193times.com"
-                  href="mailto:hello@193times.com"
+                  value="193times@mail.ru"
+                  href="mailto:193times@mail.ru"
                 />
                 <DirectLine
                   label="Telegram"
-                  value="@193times"
-                  href="https://t.me/193times"
+                  value="@odin93times"
+                  href="https://t.me/odin93times"
                 />
                 <DirectLine
                   label="Студия онлайн"

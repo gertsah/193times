@@ -135,7 +135,7 @@ function WebVisual() {
           <span className="h-1.5 w-1.5 rounded-full bg-line" />
           <span className="h-1.5 w-1.5 rounded-full bg-ember/70" />
           <span className="ml-2 font-mono text-[9px] uppercase tracking-widest text-muted">
-            193times.com
+            193times.ru
           </span>
         </div>
         <div className="grid grid-cols-12 gap-2">

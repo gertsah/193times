@@ -209,8 +209,8 @@ export default function CTA() {
                 />
                 <DirectLine
                   label="Telegram"
-                  value="@odin93times"
-                  href="https://t.me/odin93times"
+                  value="@l93times"
+                  href="https://t.me/l93times"
                 />
                 <DirectLine
                   label="Студия онлайн"

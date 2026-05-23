@@ -10,7 +10,7 @@ const NAV = [
 const SOCIALS = [
   { label: "Instagram", href: "https://instagram.com/193times" },
   { label: "TikTok", href: "https://tiktok.com/@193times" },
-  { label: "Telegram", href: "https://t.me/odin93times" },
+  { label: "Telegram", href: "https://t.me/l93times" },
   { label: "LinkedIn", href: "https://linkedin.com/company/193times" },
   { label: "Behance", href: "https://behance.net/193times" },
 ];

@@ -19,7 +19,7 @@ export default function SiteShell() {
   const [entered, setEntered] = useState(false);
 
   return (
-    <div className="theme-light relative min-h-screen bg-bg text-ink">
+    <div className="theme-light relative min-h-screen overflow-x-hidden bg-bg text-ink">
       <CustomCursor />
       {entered && <SmoothScroll />}
       {entered && <Header />}

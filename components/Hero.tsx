@@ -108,13 +108,12 @@ export default function Hero({ onEnter }: { onEnter: () => void }) {
   useLayoutEffect(() => {
     function measure() {
       const mobile = window.innerWidth < 640;
-      const side = mobile ? 96 : 150;
+      const side = mobile ? 100 : 150;
       const textW = measureRef.current?.offsetWidth ?? 360;
-      setDims({
-        side,
-        wide: textW + (mobile ? 34 : 64),
-        glyph: Math.round(side * 0.34),
-      });
+      const pad = mobile ? 30 : 64;
+      // never let the morphed frame exceed the screen width
+      const wide = Math.min(textW + pad, window.innerWidth - 32);
+      setDims({ side, wide, glyph: Math.round(side * 0.34) });
     }
     measure();
     window.addEventListener("resize", measure);

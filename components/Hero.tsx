@@ -108,11 +108,11 @@ export default function Hero({ onEnter }: { onEnter: () => void }) {
   useLayoutEffect(() => {
     function measure() {
       const mobile = window.innerWidth < 640;
-      const side = mobile ? 100 : 150;
+      const side = mobile ? 96 : 150;
       const textW = measureRef.current?.offsetWidth ?? 360;
-      const pad = mobile ? 30 : 64;
-      // never let the morphed frame exceed the screen width
-      const wide = Math.min(textW + pad, window.innerWidth - 32);
+      const pad = mobile ? 40 : 64;
+      // keep a comfortable margin so the morphed frame never spreads edge-to-edge
+      const wide = Math.min(textW + pad, window.innerWidth - (mobile ? 72 : 32));
       setDims({ side, wide, glyph: Math.round(side * 0.34) });
     }
     measure();
@@ -258,40 +258,35 @@ export default function Hero({ onEnter }: { onEnter: () => void }) {
         )}
       </AnimatePresence>
 
-      {/* Compact mobile console — lines top & bottom around the logo */}
+      {/* Mobile console — same panel style as desktop, stacked around the logo */}
       <AnimatePresence>
         {light && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.7, delay: 0.45, ease }}
-            className="edge pointer-events-none absolute inset-0 z-0 flex flex-col justify-between py-24 font-mono text-[11px] leading-relaxed text-ink/85 lg:hidden"
+            className="edge pointer-events-none absolute inset-0 z-0 flex flex-col justify-between py-[5.5rem] font-mono text-[11px] leading-relaxed text-ink/85 lg:hidden"
           >
-            <div className="space-y-0.5">
-              <p className="mb-2 text-faint">
+            <div className="space-y-5">
+              <p className="text-faint">
                 TERMINAL_01 · <Clock />
               </p>
-              <p>
-                <span className="text-ember">{PROMPT}</span> whoami
-              </p>
-              <p className="text-muted">→ 193Times — студия, Новороссийск</p>
-              <p className="pt-1">
-                <span className="text-ember">{PROMPT}</span> ls services/
-              </p>
-              <p className="text-ink">сайты · визуалы · автоматизации</p>
+              <ConsoleGroup title="> STATUS" delay={0.55}>
+                <Row k="MODE" v="LIVE" accent />
+                <Row k="CONNECTION" v="SECURE" />
+                <Row k="UPTIME" v="193 DAYS" />
+              </ConsoleGroup>
+              <ConsoleGroup title="> SERVICES" delay={0.7}>
+                <Row k="[01]" v="САЙТЫ" />
+                <Row k="[02]" v="ВИЗУАЛЫ" />
+                <Row k="[03]" v="АВТОМАТИЗАЦИИ" />
+              </ConsoleGroup>
             </div>
-            <div className="space-y-0.5">
-              <p>
-                <span className="text-ember">{PROMPT}</span> stats
-              </p>
-              <p className="text-muted">
-                193 дня · 2/квартал · ≤24ч
-              </p>
-              <p className="pt-1">
-                <span className="text-ember">{PROMPT}</span>
-                <span className="ml-1.5 inline-block h-[1em] w-[6px] -mb-[2px] animate-pulse bg-ember align-baseline" />
-              </p>
-            </div>
+            <ConsoleGroup title="SYSTEM_OVERVIEW" delay={0.85}>
+              <Row k="TIME" v={<Clock />} />
+              <Row k="RESPONSE" v="≤24H" />
+              <Row k="SLOTS" v="2 / QUARTER" />
+            </ConsoleGroup>
           </motion.div>
         )}
       </AnimatePresence>

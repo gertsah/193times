@@ -1,11 +1,10 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import Image from "next/image";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import SectionLabel from "./primitives/SectionLabel";
 import SplitReveal from "./primitives/SplitReveal";
-import { asset } from "@/lib/asset";
+import CodeRain from "./primitives/CodeRain";
 
 const TICKER = [
   "САЙТЫ",
@@ -59,18 +58,16 @@ export default function Hero() {
         className="pointer-events-none absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-ember/15 to-transparent blur-sm"
       />
 
-      {/* Background image with a soft top mask */}
-      <div className="pointer-events-none absolute inset-0 -z-10">
-        <Image
-          src={asset("/media/hero.png")}
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover opacity-[0.55] [mask-image:radial-gradient(ellipse_at_top,black_30%,transparent_85%)]"
+      {/* Background — black + matrix code rain */}
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-bg">
+        <CodeRain
+          className="absolute inset-0 h-full w-full opacity-[0.55] [mask-image:linear-gradient(to_bottom,black_55%,transparent_95%)]"
+          fontSize={16}
+          speed={1}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-bg/30 via-bg/60 to-bg" />
-        <div className="absolute inset-0 grid-overlay opacity-[0.35]" />
+        {/* Readability vignette behind the headline */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(5,5,5,0.55)_0%,rgba(5,5,5,0.8)_60%,var(--bg)_100%)]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-bg/40 via-transparent to-bg" />
         <div className="cursor-glow absolute inset-0" />
       </div>
 

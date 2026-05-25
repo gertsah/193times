@@ -51,9 +51,9 @@ export default function Header() {
             aria-label="193Times — на главную"
             className="group flex items-center gap-3"
           >
-            <Logo size={30} className="text-ink" />
-            <span className="font-display text-xl font-medium tracking-tight">
-              193<span className="italic">Times</span>
+            <Logo size={28} className="text-ink" />
+            <span className="font-sans text-[17px] font-semibold tracking-[-0.02em]">
+              193Times
             </span>
           </a>
 

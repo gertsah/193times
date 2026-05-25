@@ -2,201 +2,244 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --bg: #050505;
-  --surface: #0f0f0f;
-  --card: #141414;
-  --line: #1f1f1f;
-  --ink: #f5f2ea;
-  --muted: #9a9a9a;
-  --ember: #ff3b1f;
-  --amber: #ff6a00;
-  --gold: #f5b23d;
-  --cursor-x: 50%;
-  --cursor-y: 50%;
+:root,
+.theme-dark {
+  --c-bg: 10 10 10;
+  --c-surface: 16 16 16;
+  --c-card: 20 20 19;
+  --c-line: 38 38 31;
+  --c-ink: 236 235 227;
+  --c-muted: 140 138 128;
+  --c-faint: 90 89 79;
+  --c-ember: 255 69 36;
 }
 
-* {
+.theme-light {
+  --c-bg: 244 242 236;
+  --c-surface: 255 255 255;
+  --c-card: 250 248 242;
+  --c-line: 214 210 198;
+  --c-ink: 20 19 15;
+  --c-muted: 107 106 96;
+  --c-faint: 168 165 152;
+  --c-ember: 234 58 26;
+}
+
+html {
+  scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-html,
 body {
-  background: var(--bg);
-  color: var(--ink);
+  background: rgb(var(--c-bg));
+  color: rgb(var(--c-ink));
   font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
-}
-
-body {
-  font-feature-settings: "ss01", "ss02", "cv11";
+  font-feature-settings: "ss01", "cv11";
   text-rendering: optimizeLegibility;
 }
 
-/* Selection */
 ::selection {
-  background: var(--ember);
-  color: var(--bg);
+  background: rgb(var(--c-ember));
+  color: rgb(var(--c-bg));
 }
 
-/* Scrollbar */
+/* Scrollbar — thin, quiet */
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+  width: 9px;
 }
 ::-webkit-scrollbar-track {
   background: var(--bg);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--line);
-  border-radius: 6px;
+  background: #1c1c17;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #2a2a2a;
+  background: #2c2c24;
 }
 
-/* Custom utilities */
-@layer utilities {
-  .container-x {
-    @apply mx-auto w-full max-w-[1440px] px-6 md:px-10 lg:px-14;
+:focus-visible {
+  outline: 1px solid rgba(255, 69, 36, 0.75);
+  outline-offset: 3px;
+  border-radius: 1px;
+}
+
+@layer components {
+  /* Page horizontal frame — full-bleed */
+  .edge {
+    @apply w-full px-5 sm:px-8 lg:px-14;
   }
 
-  .hairline {
-    background-image: linear-gradient(
-      to right,
-      transparent 0%,
-      rgba(245, 242, 234, 0.18) 12%,
-      rgba(245, 242, 234, 0.18) 88%,
-      transparent 100%
-    );
+  /* Monospace technical label */
+  .label {
+    @apply font-mono text-[10.5px] uppercase tracking-[0.24em] text-muted;
   }
 
-  .text-balance {
-    text-wrap: balance;
+  /* Display serif headline base */
+  .display {
+    @apply font-display font-medium leading-[0.98] tracking-tightest;
   }
 
-  .glow-ember {
-    box-shadow:
-      0 0 0 1px rgba(255, 59, 31, 0.35),
-      0 12px 60px -10px rgba(255, 59, 31, 0.55),
-      inset 0 0 24px rgba(255, 59, 31, 0.12);
+  /* Hairline divider */
+  .rule {
+    @apply h-px w-full bg-line;
   }
 
-  .grid-overlay {
-    background-image:
-      linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
-    background-size: 80px 80px;
-  }
-
-  .noise {
-    position: relative;
-    isolation: isolate;
-  }
-  .noise::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    mix-blend-mode: overlay;
-    opacity: 0.12;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1   0 0 0 0 1   0 0 0 0 1   0 0 0 0.5 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
-    z-index: 1;
-  }
-
-  /* Hero cursor glow — picked up from --cursor-x/--cursor-y JS var */
-  .cursor-glow {
-    background: radial-gradient(
-      420px circle at var(--cursor-x) var(--cursor-y),
-      rgba(255, 59, 31, 0.18),
-      rgba(255, 106, 0, 0.08) 30%,
-      transparent 60%
-    );
-  }
-
-  .gradient-text {
-    background: linear-gradient(
-      120deg,
-      var(--ink) 0%,
-      var(--ink) 40%,
-      var(--gold) 55%,
-      var(--ember) 70%,
-      var(--ink) 100%
-    );
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-
-  .ember-stroke {
-    -webkit-text-stroke: 1px rgba(255, 59, 31, 0.55);
-    color: transparent;
-  }
-
-  .underline-grow {
-    background-image: linear-gradient(currentColor, currentColor);
-    background-position: 0 100%;
-    background-repeat: no-repeat;
-    background-size: 0 1px;
-    transition: background-size 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  .underline-grow:hover {
-    background-size: 100% 1px;
-  }
-
-  /* Editorial figure caption */
-  .marginalia {
-    @apply font-mono text-[10px] uppercase tracking-[0.18em] text-muted;
-  }
-
-  /* Policy / legal long-form */
+  /* Legal / long-form helpers (privacy page) */
   .policy-h2 {
-    @apply font-sans font-black text-2xl tracking-[-0.03em] text-ink mt-0 mb-4;
+    @apply font-display text-2xl font-normal tracking-tight text-ink;
   }
   .policy-ul {
     @apply mt-3 space-y-2 pl-5 list-disc marker:text-ember/70;
   }
+
+  /* 8-bit / pixel-style button */
+  .pixel-btn {
+    font-family: var(--font-geist-mono), ui-monospace, monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-size: 12px;
+    font-weight: 600;
+    color: rgb(var(--c-bg));
+    background: rgb(var(--c-ember));
+    padding: 13px 24px 13px 22px;
+    border: 3px solid rgb(var(--c-ink));
+    box-shadow: 6px 6px 0 0 rgb(var(--c-ink));
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition:
+      transform 0.08s steps(2),
+      box-shadow 0.08s steps(2);
+  }
+  .pixel-btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 8px 8px 0 0 rgb(var(--c-ink));
+  }
+  .pixel-btn:active {
+    transform: translate(6px, 6px);
+    box-shadow: 0 0 0 0 rgb(var(--c-ink));
+  }
+
+  /* Hover-grow underline for links */
+  .link-underline {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    background-size: 0 1px;
+    transition: background-size 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .link-underline:hover {
+    background-size: 100% 1px;
+  }
 }
 
-/* Hero ticker */
-.shimmer {
-  background: linear-gradient(
-    100deg,
-    rgba(245, 242, 234, 0.4) 0,
-    rgba(245, 242, 234, 1) 18%,
-    rgba(245, 242, 234, 0.4) 36%
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  background-size: 200% 100%;
-  animation: shimmer 6s linear infinite;
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .text-pretty {
+    text-wrap: pretty;
+  }
 }
-@keyframes shimmer {
+
+/* Discipline visuals */
+@keyframes tileShimmer {
+  0%, 100% {
+    opacity: 0.45;
+    filter: hue-rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    filter: hue-rotate(22deg);
+  }
+}
+@keyframes dashFlow {
+  to {
+    stroke-dashoffset: -24;
+  }
+}
+@keyframes nodePulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  50% {
+    transform: scale(1.35);
+    opacity: 1;
+  }
+}
+
+/* Marquee */
+@keyframes marqueeX {
   from {
-    background-position: 200% 0;
+    transform: translateX(0);
   }
   to {
-    background-position: -200% 0;
+    transform: translateX(-50%);
+  }
+}
+.animate-marquee {
+  animation: marqueeX 34s linear infinite;
+}
+.animate-marquee-fast {
+  animation: marqueeX 22s linear infinite;
+}
+.marquee-reverse {
+  animation-direction: reverse;
+}
+
+/* Animated film grain — barely-there slow drift */
+.grain-anim {
+  animation: grainShift 7s steps(4) infinite;
+}
+@keyframes grainShift {
+  0% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(-1%, 1%);
+  }
+  50% {
+    transform: translate(1%, -1%);
+  }
+  75% {
+    transform: translate(-1%, -1%);
+  }
+  100% {
+    transform: translate(1%, 1%);
   }
 }
 
-/* Smooth focus rings */
-:focus-visible {
-  outline: 1px solid rgba(255, 59, 31, 0.7);
-  outline-offset: 3px;
-  border-radius: 2px;
+/* Lenis smooth scroll */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
-/* Custom cursor — hide native one while <Cursor /> is mounted.
-   Touch / coarse-pointer devices keep their native cursor (the
-   component skips itself on those). */
+/* Hide native cursor while the custom square cursor is active */
 html.cursor-none,
-html.cursor-none body,
 html.cursor-none * {
   cursor: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
 }

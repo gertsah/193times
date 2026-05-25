@@ -2,7 +2,6 @@
 
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { asset } from "@/lib/asset";
 
 const COLS = 12;
 const ROWS = 7;
@@ -34,6 +33,67 @@ function PixelArrowUp({ className = "" }: { className?: string }) {
         <rect key={i} x={c * 3} y={r * 3} width="3" height="3" />
       ))}
     </svg>
+  );
+}
+
+function Clock() {
+  const [t, setT] = useState("--:--:--");
+  useEffect(() => {
+    const tick = () =>
+      setT(
+        new Date().toLocaleTimeString("ru-RU", {
+          hour12: false,
+          timeZone: "Europe/Moscow",
+        }),
+      );
+    tick();
+    const id = window.setInterval(tick, 1000);
+    return () => window.clearInterval(id);
+  }, []);
+  return <span className="tabular-nums text-ink">{t}</span>;
+}
+
+function ConsoleGroup({
+  title,
+  children,
+  delay = 0,
+}: {
+  title: string;
+  children: React.ReactNode;
+  delay?: number;
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay, ease: [0.16, 1, 0.3, 1] }}
+    >
+      <p className="text-faint">{title}</p>
+      <motion.div
+        initial={{ scaleX: 0 }}
+        animate={{ scaleX: 1 }}
+        transition={{ duration: 0.5, delay: delay + 0.1, ease: [0.16, 1, 0.3, 1] }}
+        className="mt-1.5 h-px w-full origin-left bg-line"
+      />
+      <div className="mt-2.5 space-y-1.5">{children}</div>
+    </motion.div>
+  );
+}
+
+function Row({
+  k,
+  v,
+  accent = false,
+}: {
+  k: string;
+  v: React.ReactNode;
+  accent?: boolean;
+}) {
+  return (
+    <div className="flex items-baseline justify-between gap-4">
+      <span className="text-faint">{k}</span>
+      <span className={accent ? "text-ember" : "text-ink/90"}>{v}</span>
+    </div>
   );
 }
 
@@ -123,81 +183,77 @@ export default function Hero({ onEnter }: { onEnter: () => void }) {
         193TIMES
       </span>
 
-      {/* Full-screen terminal — light phase. Lines top & bottom, logo in the gap */}
+      {/* Full-screen console — light phase. Panels frame the centered logo. */}
       <AnimatePresence>
         {light && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.45, ease }}
-            className="edge pointer-events-none absolute inset-0 z-0 hidden flex-col justify-between py-24 font-mono text-[12.5px] leading-relaxed text-ink/85 md:flex md:py-28 md:text-sm"
+            className="pointer-events-none absolute inset-0 z-0 hidden flex-col font-mono text-[11.5px] leading-relaxed text-ink/85 lg:flex"
           >
-            {/* top block */}
-            <div className="space-y-1">
-              <p className="mb-3 flex items-center gap-2 text-faint">
-                <span className="inline-block h-2 w-2 rounded-full bg-line" />
-                <span className="inline-block h-2 w-2 rounded-full bg-line" />
-                <span className="inline-block h-2 w-2 rounded-full bg-ember/70" />
-                <span className="ml-2 uppercase tracking-[0.18em]">
-                  193times — zsh
-                </span>
-              </p>
-              <p>
-                <span className="text-ember">{PROMPT}</span> whoami
-              </p>
-              <p className="text-muted">
-                → <span className="text-ink">193Times</span> — digital-студия из
-                Новороссийска
-              </p>
-              <p className="pt-2">
-                <span className="text-ember">{PROMPT}</span> ls services/
-              </p>
-              <p className="text-ink">
-                сайты&nbsp;&nbsp;&nbsp;визуалы&nbsp;&nbsp;&nbsp;автоматизации
-              </p>
-              <p className="pt-2">
-                <span className="text-ember">{PROMPT}</span> cat manifesto.txt
-              </p>
-              <p className="text-muted">
-                «Не сдаём макеты — собираем рабочие продукты.»
-              </p>
+            {/* status bar */}
+            <div className="edge flex items-center justify-between border-b border-line py-3 pt-24">
+              <span className="text-faint">TERMINAL_01 · 193TIMES CONSOLE</span>
+              <span className="text-faint">
+                USER: GUEST&nbsp;&nbsp;|&nbsp;&nbsp;MODE: READONLY&nbsp;&nbsp;|&nbsp;&nbsp;
+                <Clock />
+              </span>
             </div>
 
-            {/* bottom block */}
-            <div className="flex items-end justify-between gap-8">
-              <div className="space-y-1">
-                <p>
-                  <span className="text-ember">{PROMPT}</span> stats --now
-                </p>
-                <p className="text-muted">
-                  опыт <span className="text-ember">193</span> дня · 2
-                  проекта/квартал · ответ <span className="text-ember">≤24ч</span>
-                </p>
-                <p className="pt-2">
-                  <span className="text-ember">{PROMPT}</span>
-                  <span className="ml-2 inline-block h-[1em] w-[7px] -mb-[2px] animate-pulse bg-ember align-baseline" />
-                </p>
+            {/* body */}
+            <div className="edge grid flex-1 grid-cols-12 gap-x-8 py-10">
+              {/* left panel */}
+              <div className="col-span-3 space-y-7">
+                <ConsoleGroup title="WELCOME" delay={0.55}>
+                  <p className="text-muted">WELCOME TO 193TIMES CONSOLE</p>
+                  <p className="text-faint">
+                    TYPE &apos;HELP&apos; TO SEE COMMANDS
+                    <span className="ml-1 inline-block h-[1em] w-[6px] -mb-[2px] animate-pulse bg-ember align-baseline" />
+                  </p>
+                </ConsoleGroup>
+                <ConsoleGroup title="> STATUS" delay={0.7}>
+                  <Row k="MODE" v="LIVE" accent />
+                  <Row k="CONNECTION" v="SECURE" />
+                  <Row k="UPTIME" v="193 DAYS" />
+                  <Row k="VERSION" v="1.0.0" />
+                </ConsoleGroup>
+                <ConsoleGroup title="> SERVICES" delay={0.85}>
+                  <Row k="[01]" v="САЙТЫ" />
+                  <Row k="[02]" v="ВИЗУАЛЫ" />
+                  <Row k="[03]" v="АВТОМАТИЗАЦИИ" />
+                </ConsoleGroup>
               </div>
 
-              {/* video output */}
-              <div className="hidden w-[260px] shrink-0 lg:block">
-                <p className="mb-2">
-                  <span className="text-ember">{PROMPT}</span> play showreel.mp4
-                </p>
-                <div className="overflow-hidden border border-line">
-                  <video
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    poster={asset("/media/hero.png")}
-                    className="aspect-video w-full object-cover"
-                    style={{ filter: "grayscale(0.4) contrast(1.05)" }}
-                  >
-                    <source src={asset("/media/intro.mp4")} type="video/mp4" />
-                  </video>
-                </div>
+              {/* center — logo overlays here */}
+              <div className="col-span-6" />
+
+              {/* right panel */}
+              <div className="col-span-3 space-y-7">
+                <ConsoleGroup title="SYSTEM_OVERVIEW" delay={0.6}>
+                  <Row k="DATE" v="2026-05-25" />
+                  <Row k="TIME" v={<Clock />} />
+                  <Row k="TIMEZONE" v="UTC+03 · MSK" />
+                </ConsoleGroup>
+                <ConsoleGroup title="LOAD" delay={0.75}>
+                  <Row k="STUDIO" v="ONLINE" accent />
+                  <Row k="RESPONSE" v="≤24H" />
+                  <Row k="SLOTS" v="2 / QUARTER" />
+                </ConsoleGroup>
+                <ConsoleGroup title="SESSION" delay={0.9}>
+                  <Row k="LOCATION" v="НОВОРОССИЙСК" />
+                  <Row k="PORT" v="19300" />
+                  <Row k="PERMS" v="GUEST" />
+                </ConsoleGroup>
               </div>
+            </div>
+
+            {/* bottom bar */}
+            <div className="edge flex items-center justify-between border-t border-line py-3 pb-6">
+              <span className="text-faint">
+                193TIMES CONSOLE · SECURE · MINIMAL · TIMELESS
+              </span>
+              <span className="text-faint">© 2026 193TIMES · ВСЕ ПРАВА</span>
             </div>
           </motion.div>
         )}

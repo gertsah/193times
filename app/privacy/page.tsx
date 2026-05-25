@@ -18,12 +18,12 @@ const UPDATED = "17 мая 2026";
 
 export default function PrivacyPage() {
   return (
-    <>
+    <div className="theme-light bg-bg text-ink">
       <Header />
       <main className="relative bg-bg pb-24 pt-32 md:pt-40">
-        <article className="container-x mx-auto max-w-3xl">
-          <p className="marginalia">Документ · §99</p>
-          <h1 className="mt-4 font-sans font-black text-4xl leading-[1.05] tracking-[-0.04em] md:text-6xl">
+        <article className="edge mx-auto max-w-3xl">
+          <p className="label">Документ · §99</p>
+          <h1 className="display mt-5 text-4xl leading-[1.05] md:text-6xl">
             Политика обработки персональных данных
           </h1>
           <p className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-muted">
@@ -31,7 +31,7 @@ export default function PrivacyPage() {
             <span className="text-ink">ФЗ-152 «О персональных данных»</span>
           </p>
 
-          <div className="prose-policy mt-12 space-y-10 text-[15px] leading-relaxed text-ink/85">
+          <div className="mt-12 space-y-10 text-[15px] leading-relaxed text-ink/85">
             <section>
               <h2 className="policy-h2">1. Общие положения</h2>
               <p>
@@ -51,7 +51,7 @@ export default function PrivacyPage() {
               <p>
                 Настоящая Политика применяется ко всей информации, которую
                 Оператор может получить о посетителях сайта{" "}
-                <a href={SITE} className="text-ember underline-grow">
+                <a href={SITE} className="text-ember link-underline">
                   {SITE}
                 </a>
                 .
@@ -215,7 +215,7 @@ export default function PrivacyPage() {
                 электронную почту{" "}
                 <a
                   href={`mailto:${CONTACT_EMAIL}`}
-                  className="text-ember underline-grow"
+                  className="text-ember link-underline"
                 >
                   {CONTACT_EMAIL}
                 </a>
@@ -231,7 +231,7 @@ export default function PrivacyPage() {
                 Актуальная редакция всегда доступна по адресу{" "}
                 <Link
                   href="/privacy/"
-                  className="text-ember underline-grow"
+                  className="text-ember link-underline"
                 >
                   {SITE}/privacy
                 </Link>
@@ -251,7 +251,7 @@ export default function PrivacyPage() {
                     value={
                       <a
                         href={`mailto:${CONTACT_EMAIL}`}
-                        className="text-ember underline-grow"
+                        className="text-ember link-underline"
                       >
                         {CONTACT_EMAIL}
                       </a>
@@ -276,7 +276,7 @@ export default function PrivacyPage() {
         </article>
       </main>
       <Footer />
-    </>
+    </div>
   );
 }
 
@@ -289,7 +289,7 @@ function Detail({
 }) {
   return (
     <div className="flex flex-col gap-1 md:flex-row md:items-baseline md:gap-4">
-      <dt className="marginalia md:w-48 md:shrink-0">{term}</dt>
+      <dt className="label md:w-48 md:shrink-0">{term}</dt>
       <dd className="text-ink">{value}</dd>
     </div>
   );

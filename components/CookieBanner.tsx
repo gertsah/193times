@@ -46,7 +46,7 @@ export default function CookieBanner() {
               <span className="text-ink">технически необходимые</span> cookies.{" "}
               <a
                 href="/privacy/"
-                className="text-ember underline-grow hover:text-ember"
+                className="text-ember link-underline hover:text-ember"
               >
                 Подробнее
               </a>

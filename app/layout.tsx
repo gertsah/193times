@@ -1,12 +1,12 @@
 import type { Metadata, Viewport } from "next";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
-import { Instrument_Serif } from "next/font/google";
+import { Cormorant } from "next/font/google";
 import "./globals.css";
 
-const display = Instrument_Serif({
-  subsets: ["latin"],
-  weight: ["400"],
+const display = Cormorant({
+  subsets: ["latin", "cyrillic"],
+  weight: ["400", "500", "600"],
   style: ["normal", "italic"],
   variable: "--font-display",
   display: "swap",
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#050505",
+  themeColor: "#0a0a0a",
   width: "device-width",
   initialScale: 1,
 };
@@ -52,8 +52,6 @@ export default function RootLayout({
       className={`${GeistSans.variable} ${GeistMono.variable} ${display.variable}`}
     >
       <head>
-        {/* Security headers via meta — GitHub Pages can't set HTTP headers,
-            but most static scanners pick up these meta equivalents. */}
         <meta httpEquiv="X-Content-Type-Options" content="nosniff" />
         <meta name="referrer" content="strict-origin-when-cross-origin" />
         <meta
@@ -65,7 +63,7 @@ export default function RootLayout({
           content="camera=(), microphone=(), geolocation=(), payment=()"
         />
       </head>
-      <body className="bg-bg text-ink">{children}</body>
+      <body className="bg-bg text-ink antialiased">{children}</body>
     </html>
   );
 }

@@ -50,30 +50,34 @@ export default function SelectedConcepts() {
           <Reveal key={c.index} delay={i * 0.05}>
             <a
               href="#contact"
-              className="group grid grid-cols-12 items-baseline gap-x-6 gap-y-1 py-6 md:py-8"
+              className="group block py-6 md:grid md:grid-cols-12 md:items-baseline md:gap-x-6 md:py-8"
             >
-              <span className="col-span-2 font-mono text-[11px] text-faint md:col-span-1">
-                {c.index}
-              </span>
-              <h3 className="col-span-10 display text-3xl transition-colors group-hover:text-ember md:col-span-5 md:text-5xl">
-                {c.title}
-              </h3>
-              <ul className="col-span-10 col-start-3 flex flex-wrap gap-x-4 gap-y-1 md:col-span-4 md:col-start-7">
-                {c.tags.map((t) => (
-                  <li
-                    key={t}
-                    className="font-mono text-[10px] uppercase tracking-[0.18em] text-faint"
-                  >
-                    {t}
-                  </li>
-                ))}
-              </ul>
-              <span className="col-span-2 flex items-center justify-end gap-3 font-mono text-[11px] uppercase tracking-[0.18em] text-faint md:col-span-2">
-                ©{c.year}
-                <span className="text-ember opacity-0 transition-opacity group-hover:opacity-100">
-                  ↗
+              <div className="flex items-baseline gap-4 md:contents">
+                <span className="font-mono text-[11px] text-faint md:col-span-1">
+                  {c.index}
                 </span>
-              </span>
+                <h3 className="display text-3xl transition-colors group-hover:text-ember md:col-span-5 md:text-5xl">
+                  {c.title}
+                </h3>
+              </div>
+              <div className="mt-3 flex items-center justify-between gap-4 pl-8 md:mt-0 md:contents md:pl-0">
+                <ul className="flex flex-wrap gap-x-4 gap-y-1 md:col-span-4 md:col-start-7">
+                  {c.tags.map((t) => (
+                    <li
+                      key={t}
+                      className="font-mono text-[10px] uppercase tracking-[0.18em] text-faint"
+                    >
+                      {t}
+                    </li>
+                  ))}
+                </ul>
+                <span className="flex shrink-0 items-center justify-end gap-3 font-mono text-[11px] uppercase tracking-[0.18em] text-faint md:col-span-2">
+                  ©{c.year}
+                  <span className="text-ember opacity-0 transition-opacity group-hover:opacity-100">
+                    ↗
+                  </span>
+                </span>
+              </div>
             </a>
           </Reveal>
         ))}

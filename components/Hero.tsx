@@ -259,6 +259,44 @@ export default function Hero({ onEnter }: { onEnter: () => void }) {
         )}
       </AnimatePresence>
 
+      {/* Compact mobile console — lines top & bottom around the logo */}
+      <AnimatePresence>
+        {light && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.7, delay: 0.45, ease }}
+            className="edge pointer-events-none absolute inset-0 z-0 flex flex-col justify-between py-24 font-mono text-[11px] leading-relaxed text-ink/85 lg:hidden"
+          >
+            <div className="space-y-0.5">
+              <p className="mb-2 text-faint">
+                TERMINAL_01 · <Clock />
+              </p>
+              <p>
+                <span className="text-ember">{PROMPT}</span> whoami
+              </p>
+              <p className="text-muted">→ 193Times — студия, Новороссийск</p>
+              <p className="pt-1">
+                <span className="text-ember">{PROMPT}</span> ls services/
+              </p>
+              <p className="text-ink">сайты · визуалы · автоматизации</p>
+            </div>
+            <div className="space-y-0.5">
+              <p>
+                <span className="text-ember">{PROMPT}</span> stats
+              </p>
+              <p className="text-muted">
+                193 дня · 2/квартал · ≤24ч
+              </p>
+              <p className="pt-1">
+                <span className="text-ember">{PROMPT}</span>
+                <span className="ml-1.5 inline-block h-[1em] w-[6px] -mb-[2px] animate-pulse bg-ember align-baseline" />
+              </p>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Logo + hint group */}
       <div className="relative z-10 flex items-center justify-center text-ink">
         <motion.div

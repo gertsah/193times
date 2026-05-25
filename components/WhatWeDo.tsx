@@ -113,11 +113,21 @@ function AutomationBlock() {
           </ul>
         </div>
 
-        {/* Center — graph with the title floating over it */}
+        {/* Center — graph; title floats over it on desktop, sits above on mobile */}
         <div className="relative col-span-12 md:col-span-6">
-          <AutomationGraph />
-          <h3 className="pointer-events-none absolute inset-0 flex items-center justify-center">
-            <span className="font-sans text-[12vw] font-black uppercase leading-none tracking-[-0.04em] text-ink/95 [text-shadow:0_8px_40px_rgba(0,0,0,0.18)] md:text-[5.5vw]">
+          {/* mobile title */}
+          <h3 className="mb-6 flex items-baseline gap-3 md:hidden">
+            <span className="text-xl text-ember">ⓒ</span>
+            <span className="font-sans text-4xl font-black uppercase tracking-[-0.03em]">
+              Автоматизации
+            </span>
+          </h3>
+          <div className="mx-auto max-w-[360px] md:max-w-none">
+            <AutomationGraph />
+          </div>
+          {/* desktop overlaid title */}
+          <h3 className="pointer-events-none absolute inset-0 hidden items-center justify-center md:flex">
+            <span className="font-sans text-[5.5vw] font-black uppercase leading-none tracking-[-0.04em] text-ink/95 [text-shadow:0_8px_40px_rgba(0,0,0,0.18)]">
               Авто&shy;матизации
             </span>
           </h3>
@@ -125,7 +135,7 @@ function AutomationBlock() {
 
         {/* Right — items */}
         <div className="col-span-12 md:col-span-3 md:text-right">
-          <span className="text-xl text-ember">ⓒ</span>
+          <span className="hidden text-xl text-ember md:inline">ⓒ</span>
           <ul className="mt-6">
             {right.map((item, i) => (
               <li key={item}>

@@ -7,6 +7,7 @@ import { asset } from "@/lib/asset";
 const COLS = 12;
 const ROWS = 7;
 const ease = [0.16, 1, 0.3, 1] as const;
+const PROMPT = "193t@studio ~ %";
 
 // Hand-drawn 8-bit up arrow built from pixel cells
 function PixelArrowUp({ className = "" }: { className?: string }) {
@@ -122,28 +123,82 @@ export default function Hero({ onEnter }: { onEnter: () => void }) {
         193TIMES
       </span>
 
-      {/* Distorted light video — light phase only, contained (not full-screen) */}
+      {/* Full-screen terminal — light phase. Lines top & bottom, logo in the gap */}
       <AnimatePresence>
         {light && (
           <motion.div
-            initial={{ opacity: 0, scale: 1.04 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, delay: 0.25, ease }}
-            className="pointer-events-none absolute right-[3%] top-1/2 z-0 aspect-video w-[min(72vw,700px)] -translate-y-1/2 overflow-hidden border border-line"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.45, ease }}
+            className="edge pointer-events-none absolute inset-0 z-0 hidden flex-col justify-between py-24 font-mono text-[12.5px] leading-relaxed text-ink/85 md:flex md:py-28 md:text-sm"
           >
-            <video
-              autoPlay
-              loop
-              muted
-              playsInline
-              poster={asset("/media/hero.png")}
-              className="h-full w-full object-cover opacity-[0.78]"
-              style={{
-                filter: "invert(1) grayscale(0.25) contrast(1.05) brightness(1.15)",
-              }}
-            >
-              <source src={asset("/media/intro.mp4")} type="video/mp4" />
-            </video>
+            {/* top block */}
+            <div className="space-y-1">
+              <p className="mb-3 flex items-center gap-2 text-faint">
+                <span className="inline-block h-2 w-2 rounded-full bg-line" />
+                <span className="inline-block h-2 w-2 rounded-full bg-line" />
+                <span className="inline-block h-2 w-2 rounded-full bg-ember/70" />
+                <span className="ml-2 uppercase tracking-[0.18em]">
+                  193times — zsh
+                </span>
+              </p>
+              <p>
+                <span className="text-ember">{PROMPT}</span> whoami
+              </p>
+              <p className="text-muted">
+                → <span className="text-ink">193Times</span> — digital-студия из
+                Новороссийска
+              </p>
+              <p className="pt-2">
+                <span className="text-ember">{PROMPT}</span> ls services/
+              </p>
+              <p className="text-ink">
+                сайты&nbsp;&nbsp;&nbsp;визуалы&nbsp;&nbsp;&nbsp;автоматизации
+              </p>
+              <p className="pt-2">
+                <span className="text-ember">{PROMPT}</span> cat manifesto.txt
+              </p>
+              <p className="text-muted">
+                «Не сдаём макеты — собираем рабочие продукты.»
+              </p>
+            </div>
+
+            {/* bottom block */}
+            <div className="flex items-end justify-between gap-8">
+              <div className="space-y-1">
+                <p>
+                  <span className="text-ember">{PROMPT}</span> stats --now
+                </p>
+                <p className="text-muted">
+                  опыт <span className="text-ember">193</span> дня · 2
+                  проекта/квартал · ответ <span className="text-ember">≤24ч</span>
+                </p>
+                <p className="pt-2">
+                  <span className="text-ember">{PROMPT}</span>
+                  <span className="ml-2 inline-block h-[1em] w-[7px] -mb-[2px] animate-pulse bg-ember align-baseline" />
+                </p>
+              </div>
+
+              {/* video output */}
+              <div className="hidden w-[260px] shrink-0 lg:block">
+                <p className="mb-2">
+                  <span className="text-ember">{PROMPT}</span> play showreel.mp4
+                </p>
+                <div className="overflow-hidden border border-line">
+                  <video
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    poster={asset("/media/hero.png")}
+                    className="aspect-video w-full object-cover"
+                    style={{ filter: "grayscale(0.4) contrast(1.05)" }}
+                  >
+                    <source src={asset("/media/intro.mp4")} type="video/mp4" />
+                  </video>
+                </div>
+              </div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

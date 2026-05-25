@@ -14,12 +14,8 @@ const STATS = [
 
 export default function AboutHero() {
   return (
-    <section
-      id="about"
-      className="relative min-h-[100svh] pt-28 pb-16 md:pt-32"
-    >
+    <section id="about" className="relative min-h-[100svh] pt-28 pb-16 md:pt-32">
       <div className="edge">
-        {/* Headline — top aligned, clear */}
         <h2 className="display max-w-[20ch] text-pretty text-[2.8rem] leading-[0.98] sm:text-7xl lg:text-[6.4rem]">
           <motion.span
             initial={{ opacity: 0, y: 28 }}
@@ -42,7 +38,6 @@ export default function AboutHero() {
           </motion.span>
         </h2>
 
-        {/* Kinetic line */}
         <motion.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -54,7 +49,6 @@ export default function AboutHero() {
           <RotatingWord />
         </motion.p>
 
-        {/* Supporting grid: copy + stats */}
         <div className="mt-16 grid grid-cols-12 gap-x-6 gap-y-12 md:mt-24">
           <motion.p
             initial={{ opacity: 0, y: 16 }}
@@ -64,9 +58,8 @@ export default function AboutHero() {
             className="col-span-12 max-w-md text-pretty text-base leading-relaxed text-muted md:col-span-5 md:text-lg"
           >
             Небольшая команда из Новороссийска. Дизайн, код и AI — в одном
-            потоке. Берём{" "}
-            <span className="text-ink">2 проекта в квартал</span>, и каждый
-            получает полное внимание от брифа до запуска.
+            потоке. Берём <span className="text-ink">2 проекта в квартал</span>,
+            и каждый получает полное внимание от брифа до запуска.
           </motion.p>
 
           <div className="col-span-12 grid grid-cols-2 gap-x-6 gap-y-8 md:col-span-6 md:col-start-7 md:grid-cols-4">

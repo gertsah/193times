@@ -78,23 +78,74 @@ export default function WhatWeDo() {
         visual={<VisualsTiles />}
       />
 
-      {/* Discipline C — graph left, content right (alternated) */}
-      <DisciplineRow
-        mark="ⓒ"
-        title="Автоматизации"
-        body="Тихие системы, которые экономят часы каждую неделю — формы, боты, дашборды и AI, связанные в один поток."
-        items={[
-          "CRM-сценарии",
-          "Telegram / Discord боты",
-          "AI-ассистенты",
-          "Формы → CRM",
-          "Внутренние тулзы",
-          "No-code + code",
-        ]}
-        visual={<AutomationGraph />}
-        flip
-      />
+      {/* Discipline C — centered graph, title floating on top, text flanking */}
+      <AutomationBlock />
     </Section>
+  );
+}
+
+function AutomationBlock() {
+  const left = ["CRM-сценарии", "AI-ассистенты", "Внутренние тулзы"];
+  const right = ["Telegram / Discord боты", "Формы → CRM", "No-code + code"];
+
+  return (
+    <Reveal>
+      <div className="relative mt-24 grid grid-cols-12 items-center gap-x-6 gap-y-12 md:mt-36">
+        {/* Left — body + items */}
+        <div className="col-span-12 md:col-span-3">
+          <p className="max-w-xs text-pretty text-base leading-relaxed text-muted">
+            Тихие системы, которые экономят часы каждую неделю — формы,
+            боты, дашборды и AI, связанные в один поток.
+          </p>
+          <ul className="mt-8">
+            {left.map((item, i) => (
+              <li key={item}>
+                <a href="#contact" className="group flex items-baseline gap-3 py-2.5">
+                  <span className="font-mono text-[10px] text-faint">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span className="text-[17px] text-ink transition-colors group-hover:text-ember">
+                    {item}
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Center — graph with the title floating over it */}
+        <div className="relative col-span-12 md:col-span-6">
+          <AutomationGraph />
+          <h3 className="pointer-events-none absolute inset-0 flex items-center justify-center">
+            <span className="font-sans text-[12vw] font-black uppercase leading-none tracking-[-0.04em] text-ink/95 [text-shadow:0_8px_40px_rgba(0,0,0,0.18)] md:text-[5.5vw]">
+              Авто&shy;матизации
+            </span>
+          </h3>
+        </div>
+
+        {/* Right — items */}
+        <div className="col-span-12 md:col-span-3 md:text-right">
+          <span className="text-xl text-ember">ⓒ</span>
+          <ul className="mt-6">
+            {right.map((item, i) => (
+              <li key={item}>
+                <a
+                  href="#contact"
+                  className="group flex items-baseline gap-3 py-2.5 md:flex-row-reverse"
+                >
+                  <span className="font-mono text-[10px] text-faint">
+                    {String(i + 4).padStart(2, "0")}
+                  </span>
+                  <span className="text-[17px] text-ink transition-colors group-hover:text-ember">
+                    {item}
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </Reveal>
   );
 }
 

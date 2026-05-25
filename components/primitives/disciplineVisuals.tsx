@@ -26,24 +26,50 @@ export function VisualsTiles() {
   );
 }
 
-/* Animated node graph — for the "Автоматизации" block */
+/* Animated node graph — floating centerpiece for "Автоматизации" */
 export function AutomationGraph() {
   const nodes = [
-    { x: 16, y: 26, label: "FORM" },
-    { x: 50, y: 14, label: "AI" },
-    { x: 84, y: 28, label: "CRM" },
-    { x: 26, y: 76, label: "BOT" },
-    { x: 76, y: 80, label: "MAIL" },
+    { x: 12, y: 22, label: "FORM" },
+    { x: 50, y: 9, label: "AI" },
+    { x: 88, y: 24, label: "CRM" },
+    { x: 8, y: 64, label: "BOT" },
+    { x: 92, y: 66, label: "MAIL" },
+    { x: 50, y: 91, label: "DASH" },
   ];
   const center = { x: 50, y: 50 };
   return (
-    <div className="relative aspect-[4/3] w-full overflow-hidden border border-line bg-card">
+    <div className="relative aspect-square w-full">
+      {/* soft glow behind the core */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute left-1/2 top-1/2 h-1/2 w-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full"
+        style={{
+          background:
+            "radial-gradient(circle, rgba(255,69,36,0.18), transparent 70%)",
+          filter: "blur(30px)",
+        }}
+      />
+
       <svg
         viewBox="0 0 100 100"
-        preserveAspectRatio="none"
-        className="absolute inset-0 h-full w-full"
+        className="absolute inset-0 h-full w-full overflow-visible"
         aria-hidden
       >
+        {/* concentric rings */}
+        {[20, 32, 44].map((r) => (
+          <circle
+            key={r}
+            cx="50"
+            cy="50"
+            r={r}
+            fill="none"
+            stroke="rgb(var(--c-ember))"
+            strokeOpacity="0.12"
+            strokeWidth="0.4"
+            vectorEffect="non-scaling-stroke"
+          />
+        ))}
+        {/* connectors */}
         {nodes.map((n, i) => (
           <line
             key={i}
@@ -52,14 +78,15 @@ export function AutomationGraph() {
             x2={center.x}
             y2={center.y}
             stroke="rgb(var(--c-ember))"
-            strokeOpacity="0.45"
+            strokeOpacity="0.5"
             strokeWidth="1"
             strokeDasharray="3 4"
             vectorEffect="non-scaling-stroke"
-            style={{ animation: `dashFlow ${2 + i * 0.3}s linear infinite` }}
+            style={{ animation: `dashFlow ${2 + i * 0.25}s linear infinite` }}
           />
         ))}
       </svg>
+
       {nodes.map((n, i) => (
         <div
           key={i}
@@ -67,20 +94,18 @@ export function AutomationGraph() {
           style={{ left: `${n.x}%`, top: `${n.y}%` }}
         >
           <span
-            className="block h-2 w-2 rounded-full bg-ember"
-            style={{ animation: `nodePulse ${2 + i * 0.4}s ease-in-out infinite` }}
+            className="block h-2.5 w-2.5 rounded-full bg-ember shadow-[0_0_10px_rgba(255,69,36,0.6)]"
+            style={{ animation: `nodePulse ${2 + i * 0.35}s ease-in-out infinite` }}
           />
-          <span className="absolute left-1/2 top-3 -translate-x-1/2 whitespace-nowrap font-mono text-[9px] uppercase tracking-[0.2em] text-faint">
+          <span className="absolute left-1/2 top-4 -translate-x-1/2 whitespace-nowrap font-mono text-[9px] uppercase tracking-[0.22em] text-faint">
             {n.label}
           </span>
         </div>
       ))}
-      <div className="absolute left-1/2 top-1/2 flex h-11 w-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-ember/50 bg-ember/10 font-mono text-[9px] text-ember">
+
+      <div className="absolute left-1/2 top-1/2 flex h-14 w-14 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-ember/50 bg-bg/60 font-mono text-[10px] text-ember backdrop-blur">
         193
       </div>
-      <span className="absolute bottom-3 left-3 font-mono text-[9px] uppercase tracking-[0.2em] text-faint">
-        flow.run()
-      </span>
     </div>
   );
 }
